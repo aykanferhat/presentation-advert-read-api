@@ -1,0 +1,99 @@
+definitions:
+  custom_error.CustomError:
+    properties:
+      detail:
+        type: string
+      instant:
+        type: string
+      requestMethod:
+        type: string
+      requestUri:
+        type: string
+      status:
+        type: integer
+      title:
+        type: string
+    type: object
+  model_api.AdvertCategoryResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  model_api.AdvertResponse:
+    properties:
+      category:
+        $ref: '#/definitions/model_api.AdvertCategoryResponse'
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  model_api.CategoryResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /adverts/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model_api.AdvertResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/custom_error.CustomError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/custom_error.CustomError'
+      tags:
+      - adverts
+  /categories/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model_api.CategoryResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/custom_error.CustomError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/custom_error.CustomError'
+      tags:
+      - categories
+swagger: "2.0"
